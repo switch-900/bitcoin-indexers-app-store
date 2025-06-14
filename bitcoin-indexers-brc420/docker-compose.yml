@@ -1,6 +1,7 @@
 version: "3.7"
 
-services:  app_proxy:
+services:
+  app_proxy:
     environment:
       # The format here is: <app-id>_<docker-service-name>_1
       APP_HOST: bitcoin-indexers-brc420_web_1
@@ -32,11 +33,12 @@ services:  app_proxy:
       MAX_RETRIES: 3
       RETRY_DELAY: 5000
       CONCURRENCY_LIMIT: 5
-      RUN_INDEXER: false
-    depends_on:
+      RUN_INDEXER: false    depends_on:
       - db-setup
     networks:
-      - default  indexer:
+      - default
+
+  indexer:
     image: ghcr.io/switch-900/brc-420-indexer:latest
     user: "1000:1000"
     init: true
@@ -62,11 +64,12 @@ services:  app_proxy:
       RETRY_DELAY: 5000
       CONCURRENCY_LIMIT: 3  # Lower for production stability
       RUN_INDEXER: true
-    command: ["node", "index.js"]
-    depends_on:
+    command: ["node", "index.js"]    depends_on:
       - db-setup
     networks:
-      - default  db-setup:
+      - default
+
+  db-setup:
     image: ghcr.io/switch-900/brc-420-indexer:latest
     user: "1000:1000"
     volumes:
