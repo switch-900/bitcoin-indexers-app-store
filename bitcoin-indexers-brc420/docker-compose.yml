@@ -4,7 +4,8 @@ services:
   app_proxy:
     environment:
       APP_HOST: bitcoin-indexers-brc420_web_1
-      APP_PORT: 8080  web:
+      APP_PORT: 8080
+  web:
     image: ghcr.io/switch-900/brc-420-indexer:latest
     init: true
     restart: on-failure
