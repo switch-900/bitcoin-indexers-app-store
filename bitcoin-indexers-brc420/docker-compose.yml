@@ -35,10 +35,13 @@ services:
       - ${APP_DATA_DIR}/data:/app/db
       - ${APP_DATA_DIR}/logs:/app/logs
     tmpfs:
-      - /tmp:noexec,nosuid,size=50m    environment:
+      - /tmp:noexec,nosuid,size=50m
+    environment:
       NODE_ENV: production
       PORT: 8080
       DB_PATH: /app/db/brc420.db
+      # Enable indexer auto-start
+      RUN_INDEXER: "true"
       # Connect to local Umbrel services with fallbacks
       ORD_API_URL: http://${APP_ORDINALS_NODE_IP:-umbrel.local}:4000/api
       BITCOIN_RPC_HOST: ${APP_BITCOIN_NODE_IP:-umbrel.local}
@@ -53,5 +56,4 @@ services:
       MAX_RETRIES: 3
       RETRY_DELAY: 5000
       CONCURRENCY_LIMIT: 5
-      RUN_INDEXER: true
     command: ["node", "server.js"]
