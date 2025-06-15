@@ -33,8 +33,7 @@ services:
       - permissions
     volumes:
       - ${APP_DATA_DIR}/data:/app/db
-      - ${APP_DATA_DIR}/logs:/app/logs
-    tmpfs:
+      - ${APP_DATA_DIR}/logs:/app/logs    tmpfs:
       - /tmp:noexec,nosuid,size=50m
     environment:
       NODE_ENV: production
@@ -42,13 +41,13 @@ services:
       DB_PATH: /app/db/brc420.db
       # Enable indexer auto-start
       RUN_INDEXER: "true"
-      # Connect to local Umbrel services with fallbacks
+      # Try local Umbrel services first, fallback to external
       ORD_API_URL: http://${APP_ORDINALS_NODE_IP:-umbrel.local}:4000/api
       BITCOIN_RPC_HOST: ${APP_BITCOIN_NODE_IP:-umbrel.local}
       BITCOIN_RPC_PORT: ${APP_BITCOIN_RPC_PORT:-8332}
       BITCOIN_RPC_USER: ${APP_BITCOIN_RPC_USER:-umbrel}
       BITCOIN_RPC_PASS: ${APP_BITCOIN_RPC_PASS:-moneyprintergobrrr}
-      # Fallback to external APIs if needed
+      # External APIs as fallback (used by default now)
       API_URL: https://ordinals.com/api
       API_WALLET_URL: https://mempool.space/api
       START_BLOCK: 792435
