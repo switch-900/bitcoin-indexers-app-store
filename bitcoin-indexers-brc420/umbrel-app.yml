@@ -2,7 +2,7 @@ manifestVersion: 1
 id: bitcoin-indexers-brc420
 name: BRC-420 & Bitmap Indexer
 tagline: Index and explore BRC-420 inscriptions and Bitcoin bitmaps
-icon: https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/pixmaps/bitcoin128.png
+icon: https://github.com/switch-900/brc-420-indexer/blob/main/bitmap-461461.png
 category: Bitcoin
 version: "1.0.0"
 port: 8080
