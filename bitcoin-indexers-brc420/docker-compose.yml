@@ -1,9 +1,7 @@
-version: "3.7"
+version: "3.8"
 
-services:
-  app_proxy:
+services:  app_proxy:
     environment:
-      # The format here is: <app-id>_<docker-service-name>_1
       APP_HOST: bitcoin-indexers-brc420_web_1
       APP_PORT: 8080
 
