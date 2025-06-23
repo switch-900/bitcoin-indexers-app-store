@@ -1,7 +1,7 @@
 services:
   app_proxy:
     environment:
-      APP_HOST: bitmap-brc-420-indexer_web_1
+      APP_HOST: web
       APP_PORT: 8080
 
   # Init container to set up permissions
