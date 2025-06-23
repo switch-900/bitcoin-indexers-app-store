@@ -2,9 +2,9 @@ manifestVersion: 1
 id: bitcoin-indexers-brc420
 name: BRC-420 & Bitmap Indexer
 tagline: Index and explore BRC-420 inscriptions and Bitcoin bitmaps
-icon: https://raw.githubusercontent.com/switch-900/brc-420-indexer/refs/heads/main/bitmap-461461.png
+icon: https://raw.githubusercontent.com/switch-900/Bitmap-BRC-420-indexer/refs/heads/main/bitmap-461461.png
 category: Bitcoin
-version: "1.0.2"
+version: "1.0.6"
 port: 8080
 description: >-
   A comprehensive indexer for BRC-420 inscriptions and Bitcoin bitmaps. This application continuously monitors the Bitcoin blockchain to identify, validate, and store BRC-420 deploy and mint inscriptions as well as bitmap inscriptions.
@@ -23,11 +23,11 @@ description: >-
   The indexer validates all inscriptions according to BRC-420 standards and provides a clean web interface for exploring the data. It connects directly to your Umbrel's Bitcoin Core and Ordinals services for maximum privacy and performance.
 
 developer: Switch9
-website: https://github.com/switch-900/brc-420-indexer
+website: https://github.com/switch-900/Bitmap-BRC-420-indexer
 submitter: Switch9
-submission: https://github.com/switch-900/brc-420-indexer
-repo: https://github.com/switch-900/brc-420-indexer
-support: https://github.com/switch-900/brc-420-indexer/issues
+submission: https://github.com/switch-900/Bitmap-BRC-420-indexer
+repo: https://github.com/switch-900/Bitmap-BRC-420-indexer
+support: https://github.com/switch-900/Bitmap-BRC-420-indexer/issues
 gallery:
   - https://i.imgur.com/placeholder1.png
   - https://i.imgur.com/placeholder2.png
