@@ -1,15 +1,13 @@
-version: "3.7"
-
 services:
   app_proxy:
     environment:
       APP_HOST: bitmap-brc-420-indexer_web_1
       APP_PORT: 8080
-      
+
   # Init container to set up permissions
   permissions:
     image: alpine:latest
-    user: "0:0"  # Run as root to fix permissions
+    user: "0:0"
     volumes:
       - ${APP_DATA_DIR}/data:/data
       - ${APP_DATA_DIR}/logs:/logs
@@ -22,7 +20,8 @@ services:
         echo 'Permissions set successfully!'
       "
     restart: "no"
-      web:
+
+  web:
     image: ghcr.io/switch-900/bitmap-brc-420-indexer:latest
     init: true
     restart: on-failure
