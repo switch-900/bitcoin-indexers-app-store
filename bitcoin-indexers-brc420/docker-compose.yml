@@ -1,12 +1,20 @@
-version: "3.7"
+version: "3.8"
 
-services:  app_proxy:
+services:
+  app_proxy:
     environment:
       # The format here is: <app-id>_<docker-service-name>_1
       APP_HOST: bitcoin-indexers-brc420_server_1
-      APP_PORT: 3000
-    
-  server:
-    image: getumbrel/community-app-store-hello-world:latest
+      APP_PORT: 8080
+      server:
+    image: ghcr.io/switch-900/bitcoin-indexers-app-store:latest
     user: "1000:1000"
     init: true
+    restart: on-failure
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/db
+      - ${APP_DATA_DIR}/logs:/app/logs
+    environment:
+      - NODE_ENV=production
+      - DB_PATH=/app/db/brc420.db
+      - WEB_PORT=8080
