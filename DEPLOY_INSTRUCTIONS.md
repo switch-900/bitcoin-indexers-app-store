@@ -25,7 +25,7 @@ git push -u origin main
 
 ```bash
 # Remove old app store
-sudo rm -rf ~/umbrel/app-stores/switch-900-bitmap-brc-420-indexer-github-*
+sudo rm -rf ~/umbrel/app-stores/switch-900-bitmap-Bitmap-BRC-420-indexer-github-*
 
 # Add new app store via Umbrel web interface
 # Go to: Settings → App Stores → Add Community App Store

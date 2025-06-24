@@ -61,7 +61,7 @@ Built with:
 
 ## Support
 
-For issues and support, please visit: https://github.com/switch-900/Bitmap-BRC-420-indexer/issues
+For issues and support, please visit: https://github.com/switch-900/Bitmap-Bitmap-BRC-420-indexer/issues
 
 ---
 

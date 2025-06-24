@@ -40,8 +40,8 @@ A comprehensive Bitcoin inscription indexer that supports BRC-420 tokens and Bit
 
 For issues or questions about this app store:
 - GitHub Issues: [Report a bug](https://github.com/switch-900/bitcoin-indexers-app-store/issues)
-- Docker Image: `ghcr.io/switch-900/bitmap-brc-420-indexer:latest`
-- Source Code: [Bitmap BRC-420 Indexer](https://github.com/switch-900/Bitmap-BRC-420-indexer)
+- Docker Image: `ghcr.io/switch-900/bitmap-Bitmap-BRC-420-indexer:latest`
+- Source Code: [Bitmap BRC-420 Indexer](https://github.com/switch-900/Bitmap-Bitmap-BRC-420-indexer)
 
 ---
 
