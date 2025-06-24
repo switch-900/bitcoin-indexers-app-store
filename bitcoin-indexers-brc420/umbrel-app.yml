@@ -4,8 +4,8 @@ name: BRC-420 & Bitmap Indexer
 tagline: Index and explore BRC-420 inscriptions and Bitcoin bitmaps
 icon: https://raw.githubusercontent.com/switch-900/Bitmap-BRC-420-indexer/refs/heads/main/bitmap-461461.png
 category: bitcoin
-version: "1.1.4"
-port: 8080
+version: "1.1.5"
+port: 3000
 description: >-
   A comprehensive indexer for BRC-420 inscriptions and Bitcoin bitmaps. This application continuously monitors the Bitcoin blockchain to identify, validate, and store BRC-420 deploy and mint inscriptions as well as bitmap inscriptions.
 
