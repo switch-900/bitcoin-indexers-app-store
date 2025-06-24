@@ -2,65 +2,12 @@ version: "3.7"
 
 services:
   app_proxy:
-    image: getumbrel/app-proxy:1.0.0
     environment:
-      APP_HOST: bitcoin-indexers-brc420_web_1
+      # The format here is: <app-id>_<docker-service-name>_1
+      APP_HOST: bitcoin-indexers-brc420_server_1
       APP_PORT: 8080
-    depends_on:
-      web:
-        condition: service_healthy
-
-  # Init container to set up permissions
-  permissions:
-    image: alpine:latest
-    user: "0:0"
-    volumes:
-      - ${APP_DATA_DIR}/data:/data
-      - ${APP_DATA_DIR}/logs:/logs
-    command: >
-      sh -c "
-        echo 'Setting up directory permissions for UID 1000...' &&
-        mkdir -p /data /logs &&
-        chown -R 1000:1000 /data /logs &&
-        chmod -R 755 /data /logs &&
-        echo 'Permissions set successfully!'
-      "
-    restart: "no"
-
-  web:
-    image: ghcr.io/switch-900/bitmap-brc-420-indexer:latest
-    init: true
-    restart: on-failure
-    stop_grace_period: 1m
+    
+  server:
+    image: getumbrel/community-app-store-hello-world:latest
     user: "1000:1000"
-    depends_on:
-      - permissions    healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:8080/health', (res) => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
-      interval: 30s
-      timeout: 10s
-      start_period: 120s
-      retries: 5
-    volumes:
-      - ${APP_DATA_DIR}/data:/app/db
-      - ${APP_DATA_DIR}/logs:/app/logs
-    tmpfs:
-      - /tmp:noexec,nosuid,size=50m    environment:
-      NODE_ENV: production
-      PORT: 8080
-      DB_PATH: /app/db/brc420.db
-      RUN_INDEXER: "false"
-      BITCOIN_RPC_HOST: ${APP_BITCOIN_NODE_IP:-umbrel.local}
-      BITCOIN_RPC_PORT: ${APP_BITCOIN_RPC_PORT:-8332}
-      BITCOIN_RPC_USER: ${APP_BITCOIN_RPC_USER:-umbrel}
-      BITCOIN_RPC_PASS: ${APP_BITCOIN_RPC_PASS:-moneyprintergobrrr}
-      APP_ORDINALS_NODE_IP: ${APP_ORDINALS_NODE_IP:-umbrel.local}
-      DEVICE_HOSTNAME: ${DEVICE_HOSTNAME:-umbrel}
-      DEVICE_DOMAIN_NAME: ${DEVICE_DOMAIN_NAME:-umbrel.local}
-      API_URL: https://ordinals.com
-      API_WALLET_URL: https://mempool.space/api
-      START_BLOCK: 792435
-      RETRY_BLOCK_DELAY: 3
-      MAX_RETRIES: 3
-      RETRY_DELAY: 5000
-      CONCURRENCY_LIMIT: 5
-    command: ["/app/entrypoint.sh", "node", "server.js"]
+    init: true
