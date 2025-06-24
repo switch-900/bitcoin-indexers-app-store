@@ -2,9 +2,8 @@ version: "3.7"
 
 services:
   app_proxy:
-    image: getumbrel/app-proxy:1.0.0
-    environment:
-      APP_HOST: web
+    image: getumbrel/app-proxy:1.0.0    environment:
+      APP_HOST: bitcoin-indexers-brc420_web_1
       APP_PORT: 8080
     depends_on:
       web:
@@ -33,9 +32,8 @@ services:
     stop_grace_period: 1m
     user: "1000:1000"
     depends_on:
-      - permissions
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/"]
+      - permissions    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       start_period: 60s
@@ -66,10 +64,4 @@ services:
       RETRY_BLOCK_DELAY: 3
       MAX_RETRIES: 3
       RETRY_DELAY: 5000
-      CONCURRENCY_LIMIT: 5
-    command: ["node", "server.js"]
-
-networks:
-  default:
-    external: true
-    name: umbrel_main_network
+      CONCURRENCY_LIMIT: 5    command: ["node", "server.js"]
