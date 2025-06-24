@@ -1,6 +1,7 @@
 version: "3.7"
 
-services:  app_proxy:
+services:
+  app_proxy:
     image: getumbrel/app-proxy:1.0.0
     environment:
       APP_HOST: bitcoin-indexers-brc420_web_1
