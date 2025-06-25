@@ -6,9 +6,8 @@ services:
       # The format here is: <app-id>_<docker-service-name>_1
       APP_HOST: bitcoin-indexers-brc420_server_1
       APP_PORT: 8080
-    
-  server:
-    image: ghcr.io/switch-900/bitcoin-indexers-app-store:latest
+      server:
+    image: getumbrel/hello-world:latest
     user: "1000:1000"
     init: true
     restart: on-failure
