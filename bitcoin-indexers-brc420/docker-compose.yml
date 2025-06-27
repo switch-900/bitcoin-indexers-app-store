@@ -3,6 +3,9 @@ services:
     environment:
       APP_HOST: web
       APP_PORT: 8080
+    depends_on:
+      web:
+        condition: service_healthy
 
   # Init container to set up permissions
   permissions:
@@ -37,26 +40,36 @@ services:
     environment:
       NODE_ENV: production
       PORT: 8080
-      DB_PATH: /app/db/brc420.db      # Enable indexer auto-start
+      DB_PATH: /app/db/brc420.db
+      # Enable indexer auto-start
       RUN_INDEXER: "true"
-      # Official Umbrel environment variables (from framework docs)
-      BITCOIN_RPC_HOST: ${APP_BITCOIN_NODE_IP:-umbrel.local}
-      BITCOIN_RPC_PORT: ${APP_BITCOIN_RPC_PORT:-8332}
-      BITCOIN_RPC_USER: ${APP_BITCOIN_RPC_USER:-umbrel}
-      BITCOIN_RPC_PASS: ${APP_BITCOIN_RPC_PASS:-moneyprintergobrrr}
-      # Ordinals service discovery (optional - will auto-detect)
-      APP_ORDINALS_NODE_IP: ${APP_ORDINALS_NODE_IP}
+      # HTTP API only configuration for Umbrel (no Bitcoin RPC)
+      USE_LOCAL_APIS_ONLY: "true"
+      # Umbrel service discovery - these will be automatically detected
+      ORD_API_URL: http://ordinals_web_1:4000
+      API_WALLET_URL: http://mempool_web_1:3006/api
+      # Umbrel device info
       DEVICE_HOSTNAME: ${DEVICE_HOSTNAME:-umbrel}
       DEVICE_DOMAIN_NAME: ${DEVICE_DOMAIN_NAME:-umbrel.local}
-      # External APIs as fallback (FIXED - no /api suffix for ordinals.com)
+      # Ordinals service discovery (optional - will auto-detect)
+      APP_ORDINALS_NODE_IP: ${APP_ORDINALS_NODE_IP}
+      APP_MEMPOOL_NODE_IP: ${APP_MEMPOOL_NODE_IP}
+      APP_MEMPOOL_API_IP: ${APP_MEMPOOL_API_IP}
+      # External APIs as fallback (only used if local unavailable)
       API_URL: https://ordinals.com
-      API_WALLET_URL: https://mempool.space/api
+      # Indexing configuration
       START_BLOCK: 792435
       RETRY_BLOCK_DELAY: 3
       MAX_RETRIES: 3
       RETRY_DELAY: 5000
       CONCURRENCY_LIMIT: 5
     command: ["node", "server.js"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health", "||", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
 networks:
   default:
