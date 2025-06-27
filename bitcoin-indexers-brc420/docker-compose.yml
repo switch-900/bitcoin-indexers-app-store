@@ -2,6 +2,10 @@ version: "3.8"
 
 services:
   app_proxy:
+    image: nginx:alpine  
+    depends_on:
+      web:
+        condition: service_healthy
     environment:
       APP_HOST: web
       APP_PORT: 8080
@@ -29,12 +33,21 @@ services:
     stop_grace_period: 1m
     user: "1000:1000"
     depends_on:
-      - permissions
+      permissions:
+        condition: service_completed_successfully
     volumes:
       - ${APP_DATA_DIR}/data:/app/db
       - ${APP_DATA_DIR}/logs:/app/logs
     tmpfs:
       - /tmp:noexec,nosuid,size=50m
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:8080/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
     environment:
       NODE_ENV: production
       PORT: 8080
@@ -54,6 +67,8 @@ services:
       MAX_RETRIES: 3
       RETRY_DELAY: 5000
       CONCURRENCY_LIMIT: 5
+      DEBUG: "brc420:*"
+      LOG_LEVEL: "info"
 
 networks:
   default:
