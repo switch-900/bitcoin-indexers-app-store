@@ -5,9 +5,6 @@ services:
     environment:
       APP_HOST: web
       APP_PORT: 8080
-    depends_on:
-      web:
-        condition: service_healthy
 
   permissions:
     image: alpine:latest
@@ -32,23 +29,17 @@ services:
     stop_grace_period: 1m
     user: "1000:1000"
     depends_on:
-      permissions:
-        condition: service_completed_successfully
+      - permissions
     volumes:
       - ${APP_DATA_DIR}/data:/app/db
       - ${APP_DATA_DIR}/logs:/app/logs
     tmpfs:
       - /tmp:noexec,nosuid,size=50m
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/api/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 30s
+    ports:
+      - "8080:8080"
     environment:
       NODE_ENV: production
       PORT: 8080
-      # Ensure it binds to all interfaces, not just localhost
       HOST: "0.0.0.0"
       DB_PATH: /app/db/brc420.db
       RUN_INDEXER: "true"
