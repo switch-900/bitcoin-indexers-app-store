@@ -42,7 +42,7 @@ services:
       DB_PATH: /app/db/brc420.db
       RUN_INDEXER: "true"
       USE_LOCAL_APIS_ONLY: "true"
-      ORD_API_URL: http://ordinals_web_1:4000
+      ORD_API_URL: http://ordinals_app_proxy_1:4000
       API_WALLET_URL: http://mempool_web_1:3006/api
       DEVICE_HOSTNAME: ${DEVICE_HOSTNAME:-umbrel}
       DEVICE_DOMAIN_NAME: ${DEVICE_DOMAIN_NAME:-umbrel.local}
